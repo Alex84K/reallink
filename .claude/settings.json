@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./server/internal/apigen/**)",
+      "Read(./frontend/src/api/schema.d.ts)",
+      "Read(./adminpanel/src/api/schema.d.ts)",
+      "Read(**/node_modules/**)",
+      "Read(**/dist/**)",
+      "Read(**/.vite/**)",
+      "Read(./server/bin/**)",
+      "Read(./server/data/**)",
+      "Read(**/*.db)",
+      "Read(**/.env)",
+      "Read(**/package-lock.json)",
+      "Read(./server/go.sum)",
+      "Read(./openspec/changes/archive/**)"
+    ]
+  }
+}

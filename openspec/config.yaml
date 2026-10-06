@@ -1,0 +1,60 @@
+schema: spec-driven
+
+context: |
+  Language: ru
+  All artifacts must be written in ru.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+
+  ## Продукт
+  Real Connections (reallink) — платформа, которая подбирает совместимых людей
+  поблизости и переводит онлайн-знакомство в реальные встречи.
+  Ключевая метрика — Real Connections (состоявшиеся встречи), а не screen time.
+  Концепция owner (первоисточник, не редактируется): docs/product/idea.md. План проверки: docs/product/concierge-mvp-plan.md.
+
+  Решения owner, этапы и риски: docs/product/product-brief.md.
+
+  Текущий этап 1 — Hannover MVP для релокантов и диаспор (русскоязычные, украинцы,
+  румыны), только 18+, без верификации личности и без фото. Два сценария:
+  Language Connection (ru/uk/ro ↔ de) и Home Connection (общий родной язык).
+  Первая версия — веб (mobile-first); Telegram Mini App и бот — следующий change
+  (add-telegram-mini-app), второй вход в тот же профиль.
+  Интерфейс участника: ru, uk, ro, de. Подбор полуавтоматический: система
+  предлагает кандидатов с объяснением, администратор подтверждает пару.
+  Встречи только в публичных местах; жалобы и блокировка с первого дня.
+  Монетизации нет. Оператор данных — owner (физлицо), хостинг IONOS (DE).
+  Разработка — разработчик + AI-агенты по SDD.
+
+  ## Структура монорепозитория
+  - openspec/        — specs и changes (источник правды о поведении системы)
+  - docs/            — продуктовые документы, не спецификации
+  - api/openapi.yaml — контракт HTTP API между server и frontend/adminpanel
+  - server/          — Go, срезы по фичам; правила: server/CONVENTIONS.md
+  - frontend/        — SPA участника, React + TypeScript
+  - adminpanel/      — SPA администратора (отдаётся на /admin/), тот же стек
+
+  ## Технологии
+  - Backend: Go (stdlib net/http), SQLite на этапе MVP, позже PostgreSQL.
+    Роутер chi + oapi-codegen strict server. SQL пишется руками и переносимо, только в
+    <срез>/internal/store/sqlite, с контрактными тестами storetest; миграции goose.
+  - Frontend: React + TypeScript (Vite), mobile first. TanStack React Query — всё серверное
+    состояние; Redux Toolkit — только для сложного клиентского состояния по исключению.
+    Bootstrap: сетка классами, react-bootstrap для компонентов. Правила: frontend/CONVENTIONS.md.
+  - Контракт: OpenAPI 3.1; типы server и frontend генерируются из api/openapi.yaml.
+
+  ## Ограничения
+  - Пользователи в ЕС: GDPR (явное согласие, минимум данных, удаление по запросу);
+    не собирать страну происхождения и национальность.
+  - Время хранится в UTC, показывается в Europe/Berlin.
+  - Контакты участника не раскрываются другому участнику без взаимного согласия.
+
+rules:
+  proposal:
+    - Явно указывать, что вне scope
+  specs:
+    - Описывать наблюдаемое поведение; не упоминать библиотеки и имена функций
+  design:
+    - Для каждого решения указывать рассмотренную альтернативу
+    - Отмечать, что изменится при переходе SQLite → PostgreSQL
+  tasks:
+    - Каждый change, затрагивающий API, начинается с изменения api/openapi.yaml
+    - Задачи server группировать по срезам (одна группа — один срез), frontend и adminpanel — отдельно

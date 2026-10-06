@@ -1,0 +1,8 @@
+# Генерация из ../api/openapi.yaml → internal/apigen (make gen)
+package: apigen
+output: internal/apigen/api.gen.go
+generate:
+  chi-server: true
+  strict-server: true
+  models: true
+  embedded-spec: true

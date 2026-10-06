@@ -1,0 +1,15 @@
+.DS_Store
+.openspec-test-*
+.env
+
+# server
+server/bin/
+server/data/
+*.db
+*.db-shm
+*.db-wal
+
+# frontend / adminpanel
+node_modules/
+dist/
+.vite/

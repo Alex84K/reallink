@@ -1,0 +1,273 @@
+version: "2"
+
+# Границы между срезами, которые не проверяет компилятор (CONVENTIONS §3).
+linters:
+  default: standard
+  enable:
+    - depguard
+    - errorlint
+    - bodyclose
+    - noctx
+    - sqlclosecheck
+    - rowserrcheck
+    - forbidigo
+  settings:
+    forbidigo:
+      forbid:
+        - pattern: ^time\.Now$
+          msg: "используйте порт Clock (CONVENTIONS §6)"
+    depguard:
+      rules:
+        participant-isolation:
+          files:
+            - "**/internal/participant/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        admin-isolation:
+          files:
+            - "**/internal/admin/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        matching-isolation:
+          files:
+            - "**/internal/matching/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        meeting-isolation:
+          files:
+            - "**/internal/meeting/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        safety-isolation:
+          files:
+            - "**/internal/safety/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        notify-isolation:
+          files:
+            - "**/internal/notify/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/stats$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/stats/internal
+              desc: "внутренности чужого среза недоступны"
+        stats-isolation:
+          files:
+            - "**/internal/stats/**"
+            - "!**/*_test.go"
+          deny:
+            - pkg: reallink/server/internal/participant$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/participant/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/admin$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/admin/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/matching$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/matching/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/meeting$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/meeting/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/safety$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/safety/internal
+              desc: "внутренности чужого среза недоступны"
+            - pkg: reallink/server/internal/notify$
+              desc: "срез не импортирует срез — порт в ports.go, сборка в internal/app"
+            - pkg: reallink/server/internal/notify/internal
+              desc: "внутренности чужого среза недоступны"
+        platform-no-slices:
+          files:
+            - "**/internal/platform/**"
+            - "**/internal/httpx/**"
+          deny:
+            - pkg: reallink/server/internal/participant
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/admin
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/matching
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/meeting
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/safety
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/notify
+              desc: "platform и httpx не знают о срезах"
+            - pkg: reallink/server/internal/stats
+              desc: "platform и httpx не знают о срезах"
+        domain-no-io:
+          files:
+            - "**/internal/domain/**"
+          deny:
+            - pkg: database/sql
+              desc: "домен без БД"
+            - pkg: net/http
+              desc: "домен без транспорта"
+            - pkg: reallink/server/internal/apigen
+              desc: "домен не знает о контракте API"
+            - pkg: reallink/server/internal/platform/db
+              desc: "домен без БД"
+        api-packages-stdlib-only:
+          files:
+            - "**/internal/*/*api/**"
+          deny:
+            - pkg: reallink/server
+              desc: "<срез>api — только типы и stdlib"
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters: [forbidigo]
+      - path: internal/platform/clock/
+        linters: [forbidigo]
+    paths:
+      - internal/apigen
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
